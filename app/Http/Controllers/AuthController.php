@@ -24,7 +24,6 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
         return $this->authService->register($validated);
-
       
     }
 

@@ -38,10 +38,10 @@ class CustomerController extends Controller
         return $this->customerService->show($id);
     }
 
-    public function update(CustomerUpdateRequest $request, Customer $customer)
+    public function update(CustomerUpdateRequest $request, $id)
     {        
-        $cusData = $request->validated();
-        return $this->customerService->update($cusData, $customer);
+        $validated = $request->validated();
+        return $this->customerService->update($validated, $id);
     }
 
     public function destroy($id)

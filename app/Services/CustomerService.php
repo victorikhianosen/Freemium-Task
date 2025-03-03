@@ -40,20 +40,27 @@ class CustomerService
         return $this->success('Customer show successfully', $customer);
     }
 
-    public function update($cusData, $customer)
+
+
+    public function update($validated, $id)
     {
+        $customer = Customer::find($id);
+        if (!$customer) {
+            return $this->error([], 'Customer not found', 404);
+        }
+
         $authAction = $this->authorizeAction($customer);
         if ($authAction) {
             return $this->error([], $authAction, 403);
         }
-        if (isset($cusData['customer_cv'])) {
-            $path = $cusData['customer_cv']->store('customer_cvs', 'public');
-            $cusData['customer_cv'] = $path;
+        if (isset($validated['customer_cv'])) {
+            $path = $validated['customer_cv']->store('customer_cvs', 'public');
+            $validated['customer_cv'] = $path;
         }
-        $customer->update($cusData);
-
+        $customer->update($validated);
         return $this->success('Customer updated successfully', new CustomerResource($customer));
     }
+
 
     public function destroy($id)
     {
