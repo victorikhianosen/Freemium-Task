@@ -24,12 +24,12 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::where('user_id', Auth::id())->latest()->paginate(10);
-        return $this->success($customers, 'Customers fetched successfully');
+        return $this->success( 'Customers fetched successfully', $customers);
     }
 
     public function allCustomers() {
         $customers = Customer::latest()->paginate(10);
-        return $this->success($customers, 'Customers fetched successfully');
+        return $this->success( 'Customers fetched successfully', $customers);
     }
 
 
